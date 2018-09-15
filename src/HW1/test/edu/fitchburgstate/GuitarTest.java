@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 import HW1.edu.fitchburgstate.Guitar;
 
 /**
- * Tests for testing Guitar class functionality.
+ * Includes Tests for testing Guitar class functionality.
  */
 class GuitarTest {
 	

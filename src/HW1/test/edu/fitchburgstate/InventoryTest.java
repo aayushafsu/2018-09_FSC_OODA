@@ -23,7 +23,7 @@ public class InventoryTest {
     Guitar testGuitar2;
 
     /**
-     * Test setup. Create Inventory by adding test guitars.
+     * Test setup. Created Inventory by adding test guitars.
      */
     @BeforeEach
     public void setup() {
@@ -137,7 +137,6 @@ public class InventoryTest {
 
         Guitar returnedGuitar = inventory.search(userGuitarPreference);
         assertEquals(userGuitarPreference.getModel(), returnedGuitar.getModel());
-
     }
 
     /**
@@ -150,8 +149,6 @@ public class InventoryTest {
 
         Guitar returnedGuitar = inventory.search(userGuitarPreference);
         assertEquals(userGuitarPreference.getType(), returnedGuitar.getType());
-
-
     }
 
     /**
@@ -164,7 +161,6 @@ public class InventoryTest {
 
         Guitar returnedGuitar = inventory.search(userGuitarPreference);
         assertEquals(userGuitarPreference.getManufacturer(), returnedGuitar.getManufacturer());
-
     }
 
     /**
@@ -173,12 +169,11 @@ public class InventoryTest {
      */
     @Test
     void testSearchGuitarByUnavailableManufacturer() {
-        Guitar userGuitarPreference = new Guitar(null, 0, null, null, null,
+        Guitar userGuitarPreference = new Guitar(null, 0, "ABC", null, null,
                 null, null);
 
         Guitar returnedGuitar = inventory.search(userGuitarPreference);
         assertEquals(null, returnedGuitar);
-
     }
 
     /**
@@ -192,7 +187,6 @@ public class InventoryTest {
 
         Guitar returnedGuitar = inventory.search(userGuitarPreference);
         assertEquals(null, returnedGuitar);
-
     }
 
     /**
@@ -206,7 +200,6 @@ public class InventoryTest {
 
         Guitar returnedGuitar = inventory.search(userGuitarPreference);
         assertEquals(null, returnedGuitar);
-
     }
 
     /**
@@ -220,7 +213,6 @@ public class InventoryTest {
 
         Guitar returnedGuitar = inventory.search(userGuitarPreference);
         assertEquals(null, returnedGuitar);
-
     }
 
     /**
@@ -234,7 +226,6 @@ public class InventoryTest {
 
         Guitar returnedGuitar = inventory.search(userGuitarPreference);
         assertEquals(null, returnedGuitar);
-
     }
 }
 

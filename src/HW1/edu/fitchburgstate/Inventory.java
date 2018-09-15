@@ -65,7 +65,7 @@ public class Inventory {
    *
    * @param searchGuitar - Customer preferred guitar
    *
-   * @return Returns a guitar which matches the preference of the customer as described by searchGuitar.
+   * @return Returns a guitar which matches the preference of the customer as described by searchGuitar,null if not found.
    */
   public Guitar search(Guitar searchGuitar) {
     for (Iterator i = guitars.iterator(); i.hasNext(); ) {
