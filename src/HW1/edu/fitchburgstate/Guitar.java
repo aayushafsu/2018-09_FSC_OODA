@@ -2,18 +2,17 @@
  * Class: Object-Oriented Design and Analysis
  * Professor: Orlando Montalvo
  * Assignment: HW 1
- * 
- * Date: 2018-09-03
+ * Date: 2018-09-12
+ * Students: Aayusha Agrawal (@01395854)
  */
 
-package HW1;
+package HW1.edu.fitchburgstate;
 
 /**
  * Guitar contains the information needed to keep track of a type of guitar from
  * Rick's music store
  * 
  * @author HeadFirstOODA
- *
  */
 public class Guitar {
 

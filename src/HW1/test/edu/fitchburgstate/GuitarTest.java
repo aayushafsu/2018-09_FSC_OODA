@@ -1,18 +1,33 @@
-package HW1.test;
+/**
+ * Class: Object-Oriented Design and Analysis
+ * Professor: Orlando Montalvo
+ * Assignment: HW 1
+ * Date: 2018-09-12
+ * Students: Aayusha Agrawal (@01395854)
+ */
+
+package HW1.test.edu.fitchburgstate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import HW1.edu.fitchburgstate.Inventory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import HW1.Guitar;
+import HW1.edu.fitchburgstate.Guitar;
 
+/**
+ * Tests for testing Guitar class functionality.
+ */
 class GuitarTest {
 	
 	Guitar testGuitar;
 
+	/**
+	 * Initial test setup to create a test Guitar.
+	 */
 	@BeforeEach
-	void setUp() throws Exception {
+	void setUp() {
 		this.testGuitar = new Guitar(
 				"AB123", // serial number
 				203.35, // store price
@@ -24,6 +39,9 @@ class GuitarTest {
 				);
 	}
 
+	/**
+	 * Tests that the serialNumber field of Guitar can be fetched.
+	 */
 	@Test
 	void testGetSerialNumber() {
 		String expected = "AB123";
@@ -31,6 +49,7 @@ class GuitarTest {
 		assertEquals(expected, returned, String.format("Serial number %s != %s", expected, returned));
 	}
 
+	/* Tests that we are able to fetch Price field of the Guitar */
 	@Test
 	void testGetPrice() {
 		double expected = 203.35;
@@ -38,6 +57,7 @@ class GuitarTest {
 		assertEquals(expected, returned, 0.01, String.format("Price %f != %f", expected, returned));
 	}
 
+	/* Tests that we are able to set price field of Guitar */
 	@Test
 	void testSetPrice() {
 		double expected = 225.10;
@@ -46,6 +66,7 @@ class GuitarTest {
 		assertEquals(expected, returned, String.format("Price %f != %f", expected, returned));
 	}
 
+	/* tests that we are able to fetch manufacturer field of Guitar */
 	@Test
 	void testGetManufacturer() {
 		String expected = "Gibson";
@@ -53,6 +74,7 @@ class GuitarTest {
 		assertEquals(expected, returned, String.format("Manufacturer %s != %s", expected, returned));
 	}
 
+	/* tests that we are able to fetch model field of Guitar */
 	@Test
 	void testGetModel() {
 		String expected = "EasyLearn";
@@ -60,6 +82,7 @@ class GuitarTest {
 		assertEquals(expected, returned, String.format("Model %s != %s", expected, returned));
 	}
 
+	/* tests that we are able to fetch type field of Guitar */
 	@Test
 	void testGetType() {
 		String expected = "electric";
@@ -67,6 +90,7 @@ class GuitarTest {
 		assertEquals(expected, returned, String.format("Type %s != %s", expected, returned));
 	}
 
+	/* tests that we are able to fetch Backwood field of Guitar */
 	@Test
 	void testGetBackWood() {
 		String expected = "Maple";
@@ -74,6 +98,7 @@ class GuitarTest {
 		assertEquals(expected, returned, String.format("Back wood %s != %s", expected, returned));
 	}
 
+	/* tests that we are able to fetch Topwood field of Guitar */
 	@Test
 	void testGetTopWood() {
 		String expected = "Adirondack";

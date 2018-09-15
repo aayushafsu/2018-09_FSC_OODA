@@ -1,12 +1,32 @@
-package HW1;
+/**
+ * Class: Object-Oriented Design and Analysis
+ * Professor: Orlando Montalvo
+ * Assignment: HW 1
+ * Date: 2018-09-12
+ * Students: Aayusha Agrawal (@01395854)
+ */
+
+package HW1.edu.fitchburgstate;
+
+import HW1.edu.fitchburgstate.Guitar;
+import HW1.edu.fitchburgstate.Inventory;
+
+/**
+ * Finds appropriate guitar for Erin's needs using Rick's music store inventory
+ */
 public class FindGuitarTester {
 
+  /**
+   * Entry point of the program.
+   *
+   * @param args - Command lime arguments.
+   */
   public static void main(String[] args) {
     // Set up Rick's guitar inventory
     Inventory inventory = new Inventory();
     initializeInventory(inventory);
 
-    Guitar whatErinLikes = new Guitar("", 0, "fender", "Stratocastor", 
+    Guitar whatErinLikes = new Guitar("", 0, "fender", "Stratocastor",
                                       "electric", "Alder", "Alder");
     Guitar guitar = inventory.search(whatErinLikes);
     if (guitar != null) {
@@ -21,6 +41,11 @@ public class FindGuitarTester {
     }
   }
 
+  /**
+   * Initialize Inventory with some Guitars.
+   *
+   * @param inventory - Guitar Inventory.
+   */
   private static void initializeInventory(Inventory inventory) {
     inventory.addGuitar("11277", 3999.95, "Collings", "CJ", "acoustic",
                         "Indian Rosewood", "Sitka");
