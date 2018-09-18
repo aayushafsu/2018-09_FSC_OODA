@@ -1,8 +1,8 @@
 /**
  * Class: Object-Oriented Design and Analysis
  * Professor: Orlando Montalvo
- * Assignment: HW 1
- * Date: 2018-09-12
+ * Assignment: HW 2
+ * Date: 2018-09-18
  * Students: Aayusha Agrawal (@01395854)
  */
 
@@ -11,14 +11,13 @@ package HW1.edu.fitchburgstate;
 /**
  * Guitar contains the information needed to keep track of a type of guitar from
  * Rick's music store
- * 
- * @author HeadFirstOODA
  */
 public class Guitar {
 
+	public GuitarSpec gSpec;
+
 	/**
 	 * Full constructor
-	 * 
 	 * @param serialNumber manufacturer serial number
 	 * @param price store price
 	 * @param manufacturer the guitar's manufacturer
@@ -27,17 +26,13 @@ public class Guitar {
 	 * @param backWood the wood used for the guitar body
 	 * @param topWood the wood used for the guitar's face
 	 */
-	public Guitar(String serialNumber, double price, 
-			String manufacturer, String model, 
-			String type, String backWood,
-			String topWood) {
+	public Guitar(String serialNumber, double price,
+				  GuitarManufacturer manufacturer, String model,
+				  GuitarType type, GuitarWood backWood,
+				  GuitarWood topWood) {
 		this.serialNumber = serialNumber;
 		this.price = price;
-		this.manufacturer = manufacturer;
-		this.model = model;
-		this.type = type;
-		this.backWood = backWood;
-		this.topWood = topWood;
+		this.gSpec = new GuitarSpec(manufacturer, model, type, backWood, topWood);
 	}
 
 	/**
@@ -65,74 +60,21 @@ public class Guitar {
 	}
 
 	/**
-	 * Returns the name of the manufacturer
-	 */
-	public String getManufacturer() {
-		return this.manufacturer;
-	}
-
-	/**
-	 * Returns the manufacturer model
-	 */
-	public String getModel() {
-		return model;
-	}
-
-	/**
-	 * Returns the guitar type
-	 * @return
-	 */
-	public String getType() {
-		return type;
-	}
-
-	/**
-	 * Returns the type of wood used in the body
-	 */
-	public String getBackWood() {
-		return backWood;
-	}
-
-	/**
-	 * Returns the type of wood used in the face
-	 * @return
-	 */
-	public String getTopWood() {
-		return topWood;
-	}
-
-	/**
 	 * The guitars manufacturer serial number
 	 */
 	private String serialNumber;
 
 	/**
-	 * The name of the manufacturer
-	 */
-	private String manufacturer;
-
-	/**
-	 * The manufacturer model number
-	 */
-	private String model;
-
-	/**
-	 * The guitar type (electric/acoustic)
-	 */
-	private String type;
-
-	/**
-	 * The wood used for the back of the guitar
-	 */
-	private String backWood;
-
-	/**
-	 * The wood used for the face of the guitar
-	 */
-	private String topWood;
-
-	/**
 	 * Rick's price for the guitar
 	 */
 	private double price;
+
+	/**
+	 * @return GuitarSpec returns guitarspec
+	 */
+	public GuitarSpec getgSpec()
+	{
+		return gSpec;
+	}
+
 }
