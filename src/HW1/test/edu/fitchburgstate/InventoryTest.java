@@ -1,84 +1,145 @@
 /**
  * Class: Object-Oriented Design and Analysis
  * Professor: Orlando Montalvo
- * Assignment: HW 1
- * Date: 2018-09-12
+ * Assignment: HW 2
+ * Date: 2018-09-18
  * Students: Aayusha Agrawal (@01395854)
  */
-
 package HW1.test.edu.fitchburgstate;
-
 import static org.junit.jupiter.api.Assertions.*;
-import HW1.edu.fitchburgstate.Guitar;
-import HW1.edu.fitchburgstate.Inventory;
+
+import HW1.edu.fitchburgstate.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Contains tests to test methods of Inventory class.
  */
 public class InventoryTest {
-    Inventory inventory;
-    Guitar testGuitar1;
-    Guitar testGuitar2;
 
-    /**
-     * Test setup. Created Inventory by adding test guitars.
-     */
+    Inventory inventory;
+    Guitar guitar1;
+    Guitar guitar2;
+    Guitar guitar3;
+
+
     @BeforeEach
     public void setup() {
-        // instantiate inventory class
-        inventory = new Inventory();
+       inventory = new Inventory();
 
-        testGuitar1 = new Guitar("1000", 599.99, "Nirma", "Xtreme", "acoustic",
-                "Indian Rosewood", "Rosewood");
+       guitar1 = new Guitar("X200", 1499, GuitarManufacturer.GIBSON, "Stratocastor", GuitarType.ELECTRIC,
+               GuitarWood.MAHOGANY, GuitarWood.ALDER);
+       inventory.addGuitar(guitar1.getSerialNumber(), guitar1.getPrice(), guitar1.getgSpec().getManufacturer(), guitar1.getgSpec().getModel(),
+               guitar1.getgSpec().getType(), guitar1.getgSpec().getBackWood(), guitar1.getgSpec().getTopWood());
 
-        inventory.addGuitar(testGuitar1.getSerialNumber(), testGuitar1.getPrice(), testGuitar1.getManufacturer(),
-                testGuitar1.getModel(), testGuitar1.getType(), testGuitar1.getBackWood(), testGuitar1.getTopWood());
+       guitar2 = new Guitar("X301", 5999, GuitarManufacturer.FENDER, "CJ", GuitarType.ACOUSTIC,
+               GuitarWood.INDIAN_ROSEWOOD, GuitarWood.CEDAR);
+       inventory.addGuitar(guitar2.getSerialNumber(), guitar2.getPrice(), guitar2.getgSpec().getManufacturer(),
+               guitar2.getgSpec().getModel(), guitar2.getgSpec().getType(), guitar2.getgSpec().getBackWood(),
+               guitar2.getgSpec().getTopWood());
 
-        testGuitar2 = new Guitar("X200", 1199.99, "Gain", "Zeta", "electric",
-                "Alder", "Mahogany");
-
-        inventory.addGuitar(testGuitar2.getSerialNumber(), testGuitar2.getPrice(), testGuitar2.getManufacturer(),
-                testGuitar2.getModel(), testGuitar2.getType(), testGuitar2.getBackWood(), testGuitar2.getTopWood());
+       guitar3 = new Guitar("X501",2999, GuitarManufacturer.COLLINGS, "Stratocastor",GuitarType.ELECTRIC,
+               GuitarWood.MAPLE, GuitarWood.COCOBOLO);
+        inventory.addGuitar(guitar3.getSerialNumber(), guitar3.getPrice(), guitar3.getgSpec().getManufacturer(), guitar3.getgSpec().getModel(),
+                guitar3.getgSpec().getType(), guitar3.getgSpec().getBackWood(), guitar3.getgSpec().getTopWood());
     }
 
+
     /**
-     * Tests if we can get a guitar by the serial number.
+     * Test if adding another Guitar to the Inventory does not affect the existing Inventory.
      */
     @Test
-    void testGetGuitarBySerialNumber() {
-        Guitar userGuitarPreference = inventory.getGuitar(testGuitar1.getSerialNumber());
-        compareGuitars(testGuitar1, userGuitarPreference);
+    void testAddGuitar(){
+        Guitar newGuitar = new Guitar("X8020", 3500, GuitarManufacturer.FENDER, "CJ",
+                GuitarType.ACOUSTIC, GuitarWood.INDIAN_ROSEWOOD, GuitarWood.MAPLE);
+        //Add Guitar 2
+       inventory.addGuitar(newGuitar.getSerialNumber(), newGuitar.getPrice(), newGuitar.getgSpec().getManufacturer(),
+               newGuitar.getgSpec().getModel(),
+               newGuitar.getgSpec().getType(), newGuitar.getgSpec().getBackWood(), newGuitar.getgSpec().getTopWood());
+
+
+       //Check if the existing Guitar is present in the Inventory.
+       Guitar returnedGuitar1 = inventory.getGuitar(this.guitar1.getSerialNumber());
+       compareGuitars(this.guitar1, returnedGuitar1);
+
+       //Check if the new Guitar is present in the Inventory.
+        Guitar returnedNewGuitar = inventory.getGuitar(newGuitar.getSerialNumber());
+        compareGuitars(newGuitar, returnedNewGuitar);
     }
 
-
     /**
-     * Tests to see if a guitar is returned on No preference specified by the user
+     * Test if the guitar found is the right guitar
      */
     @Test
-    void testGetGuitarNoPreference() {
+     void testGetGuitar(){
+        Guitar guitar = inventory.getGuitar(guitar1.getSerialNumber());
 
-        Guitar userGuitarPreference = new Guitar(null, 0, null, null, null,
-                null, null);
+        Guitar requiredGuitar = new Guitar("X200", 1499, GuitarManufacturer.GIBSON, "Stratocastor", GuitarType.ELECTRIC,
+                GuitarWood.MAHOGANY, GuitarWood.ALDER);
 
-        Guitar returnedGuitar = inventory.search(userGuitarPreference);
-
-        try {
-            //Check if testGuitar 1 is returned
-            compareGuitars(testGuitar1, returnedGuitar);
-        } catch (AssertionError e) {
-            //If testGuitar1 is not returned, check if testGuitar2 is returned.
-            compareGuitars(testGuitar2, returnedGuitar);
-        }
+        assertEquals(requiredGuitar.getSerialNumber(), guitar.getSerialNumber());
     }
 
     /**
-     * Compares two guitars if they are the same guitar. If the guitars are not equal the method throws
+     * Tests guitar search by manufacturer Gibson
+     */
+    @Test
+    void testSearchGuitarByGibsonManufacturer(){
+        GuitarSpec requiredGuitar = new GuitarSpec(GuitarManufacturer.GIBSON,null, null,
+              null,null);
+        List<Guitar> foundguitars= inventory.search(requiredGuitar);
+
+        assertEquals(1,foundguitars.size());
+        compareGuitars(guitar1, foundguitars.get(0));
+    }
+
+    /**
+     * Tests guitar search by manufacturer fender
+     */
+    @Test
+    void testSearchGuitarByFenderManufacturer(){
+        GuitarSpec requiredGuitar = new GuitarSpec(GuitarManufacturer.FENDER,null, null,
+                null,null);
+        List<Guitar> foundguitars= inventory.search(requiredGuitar);
+
+        assertEquals(1,foundguitars.size());
+        compareGuitars(guitar2, foundguitars.get(0));
+    }
+
+    /**
+     * Tests guitar search by Type Electric
+     */
+    @Test
+    void testSearchGuitarByElectricType(){
+        GuitarSpec requiredGuitar = new GuitarSpec(null,null, GuitarType.ELECTRIC,
+                null,null);
+        List<Guitar> foundguitars= inventory.search(requiredGuitar);
+
+        assertEquals(2,foundguitars.size());
+        compareGuitars(guitar1, foundguitars.get(0));
+        compareGuitars(guitar3, foundguitars.get(1));
+    }
+
+    /**
+     * Tests guitar search by bulder=fender, type=electric, topwood=alder, backwood=alder,  model=Stratocastor
+     */
+    @Test
+    void testSearchGuitarBySpecficType(){
+        GuitarSpec requiredGuitar = new GuitarSpec(GuitarManufacturer.FENDER,"Stratocastor",
+                GuitarType.ELECTRIC, GuitarWood.ALDER,GuitarWood.ALDER);
+        List<Guitar> foundguitars= inventory.search(requiredGuitar);
+
+        assertEquals(0,foundguitars.size());
+
+    }
+
+    /**Compares two guitars if they are the same guitar. If the guitars are not equal the method throws
      * assertion error.
-     *
-     * @param guitar1 - some guitar.
-     * @param guitar2 - some guitar.
+     * @param guitar1 some guitar
+     * @param guitar2 some guitar
      */
     private void compareGuitars(Guitar guitar1, Guitar guitar2) {
         if (guitar1 == null ) {
@@ -95,139 +156,12 @@ public class InventoryTest {
         }
 
         assertEquals(guitar1.getSerialNumber(), guitar2.getSerialNumber());
-        assertEquals(guitar1.getManufacturer(), guitar2.getManufacturer());
-        assertEquals(guitar1.getModel(), guitar2.getModel());
+        assertEquals(guitar1.getgSpec().getManufacturer(), guitar2.getgSpec().getManufacturer());
+        assertEquals(guitar1.getgSpec().getModel(), guitar2.getgSpec().getModel());
         assertEquals(guitar1.getPrice(), guitar2.getPrice());
-        assertEquals(guitar1.getType(), guitar2.getType());
-        assertEquals(guitar1.getTopWood(), guitar2.getTopWood());
-        assertEquals(guitar1.getBackWood(), guitar2.getBackWood());
-    }
-
-    /**
-     * Tests if a Guitar is returned when the user searches guitar by Backwood.
-     */
-    @Test
-    void testSearchGuitarByBackwood() {
-        Guitar userGuitarPreference = new Guitar("", 0, "", null, null,
-                "Indian Rosewood","");
-
-        Guitar returnedGuitar = inventory.search(userGuitarPreference);
-        assertEquals(userGuitarPreference.getBackWood(), returnedGuitar.getBackWood());
-    }
-
-    /**
-     * Tests if a Guitar is returned when the user searches guitar by topwood 
-     */
-    @Test
-    void testSearchGuitarByTopwood() {
-        Guitar userGuitarPreference = new Guitar("", 0, "", null, null,
-                "","Mahogany");
-
-        Guitar returnedGuitar = inventory.search(userGuitarPreference);
-        assertEquals(userGuitarPreference.getTopWood(), returnedGuitar.getTopWood());
-    }
-
-    /**
-     * Tests if a Guitar is returned when the user searches guitar by model
-     */
-    @Test
-    void testSearchGuitarByModel() {
-        Guitar userGuitarPreference = new Guitar("", 0, "", "Zeta", null,
-                "", "");
-
-        Guitar returnedGuitar = inventory.search(userGuitarPreference);
-        assertEquals(userGuitarPreference.getModel(), returnedGuitar.getModel());
-    }
-
-    /**
-     * Tests if a Guitar is returned when the user searches guitar by Type
-     */
-    @Test
-    void testSearchGuitarByType() {
-        Guitar userGuitarPreference = new Guitar("", 0, "", null, "acoustic",
-                "", "");
-
-        Guitar returnedGuitar = inventory.search(userGuitarPreference);
-        assertEquals(userGuitarPreference.getType(), returnedGuitar.getType());
-    }
-
-    /**
-     * Tests if a Guitar is returned when the user searches guitar by Manufacturer name
-     */
-    @Test
-    void testSearchGuitarByManufacturer() {
-        Guitar userGuitarPreference = new Guitar("", 0, "Nirma", "", null,
-                "", "");
-
-        Guitar returnedGuitar = inventory.search(userGuitarPreference);
-        assertEquals(userGuitarPreference.getManufacturer(), returnedGuitar.getManufacturer());
-    }
-
-    /**
-     * Tests to see if no guitar is returned when the user specified manufacturer Guitar is not present in the
-     * Inventory.
-     */
-    @Test
-    void testSearchGuitarByUnavailableManufacturer() {
-        Guitar userGuitarPreference = new Guitar(null, 0, "ABC", null, null,
-                null, null);
-
-        Guitar returnedGuitar = inventory.search(userGuitarPreference);
-        assertEquals(null, returnedGuitar);
-    }
-
-    /**
-     * Tests to see if no guitar is returned when the user specified model of Guitar is not present in the
-     * Inventory.
-     */
-    @Test
-    void testSearchGuitarByUnavailableModel() {
-        Guitar userGuitarPreference = new Guitar(null, 0, null, "Alpha", null,
-                null, null);
-
-        Guitar returnedGuitar = inventory.search(userGuitarPreference);
-        assertEquals(null, returnedGuitar);
-    }
-
-    /**
-     * Tests to see if no guitar is returned when the user specified Type of Guitar is not present in the
-     * Inventory.
-     */
-    @Test
-    void testSearchGuitarByUnavailableType() {
-        Guitar userGuitarPreference = new Guitar(null, 0, null, null, "Bass",
-                null, null);
-
-        Guitar returnedGuitar = inventory.search(userGuitarPreference);
-        assertEquals(null, returnedGuitar);
-    }
-
-    /**
-     * Tests to see if no guitar is returned when the user specified Guitar Backwood material is not present in the
-     * Inventory.
-     */
-    @Test
-    void testSearchGuitarByUnavailableBackwood() {
-        Guitar userGuitarPreference = new Guitar(null, 0, null, null, null,
-                "Sandalwood", null);
-
-        Guitar returnedGuitar = inventory.search(userGuitarPreference);
-        assertEquals(null, returnedGuitar);
-    }
-
-    /**
-     * Tests to see if no guitar is returned when the user specified Guitar Topwood material is not present in the
-     * Inventory.
-     */
-    @Test
-    void testSearchGuitarByUnavailableTopwood() {
-        Guitar userGuitarPreference = new Guitar(null, 0, null, null, null,
-                "", "Sandalwood");
-
-        Guitar returnedGuitar = inventory.search(userGuitarPreference);
-        assertEquals(null, returnedGuitar);
+        assertEquals(guitar1.getgSpec().getType(), guitar2.getgSpec().getType());
+        assertEquals(guitar1.getgSpec().getBackWood(), guitar2.getgSpec().getBackWood());
+        assertEquals(guitar1.getgSpec().getTopWood(), guitar2.getgSpec().getTopWood());
     }
 }
-
-
 

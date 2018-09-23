@@ -68,9 +68,9 @@ public class FindGuitarTester {
   {
     Inventory inventory = new Inventory();
     initializeInventory(inventory);
-    Guitar priceSpecification = new Guitar(null,2100.95,null,null,null,null,null); //Guitar object
+    double price = 2100.95;
     List<Guitar> PriceMatchGuitars = new LinkedList<>();
-    PriceMatchGuitars = inventory.priceSearch(priceSpecification);
+    PriceMatchGuitars = inventory.SearchGuitarByPrice(price);
     System.out.println("Searching with Price:");
     if (!PriceMatchGuitars.isEmpty())
     {

@@ -14,7 +14,10 @@ package HW1.edu.fitchburgstate;
  */
 public class Guitar {
 
-	public GuitarSpec gSpec;
+	/**
+	 * GuitarSpec is the guitar specifications contains parameters manufacturer, model, type, backWood, topWood.
+	 */
+	private GuitarSpec gSpec;
 
 	/**
 	 * Full constructor

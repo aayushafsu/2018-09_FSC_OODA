@@ -10,6 +10,7 @@ package HW1.edu.fitchburgstate;
 
 /**
  * Created by Aayusha on 9/16/2018.
+ *
  * GuitarSpec contains attributes of the guitar such as builder,model,type,backwood and topwood
  */
 public class GuitarSpec {

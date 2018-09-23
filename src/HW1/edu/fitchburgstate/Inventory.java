@@ -61,7 +61,6 @@ public class Inventory {
    * @param searchGuitarSpec - guitar specification
    * @return Returns a list of guitars which match the preference of the customer ,null if not found.
    */
-
   public List<Guitar> search(GuitarSpec searchGuitarSpec) {
     List<Guitar> matchedGuitars = new LinkedList<Guitar>();
     for (Iterator<Guitar> i = guitars.iterator(); i.hasNext(); ) {
@@ -77,17 +76,17 @@ public class Inventory {
 
   /**
    * Search and returns guitars with given price
-   * @param priceSpecification Guitar's price
+   * @param price Guitar's price
    * @return List returns list of matching guitars, null if not found
    */
-
-  public List<Guitar> priceSearch(Guitar priceSpecification)
+  public List<Guitar> SearchGuitarByPrice(Double price)
   {
     List<Guitar> priceMatchGuitars = new LinkedList<Guitar>();
     for (Iterator<Guitar> i = guitars.iterator(); i.hasNext(); )
     {
       Guitar guitar = (Guitar)i.next();
-      int Result = Double.compare(priceSpecification.getPrice(),guitar.getPrice());
+
+      int Result = Double.compare(price,guitar.getPrice());
       if (Result == 0)
       {
         priceMatchGuitars.add(guitar); //Adds guitars matching with given price
